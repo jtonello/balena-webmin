@@ -1,0 +1,7 @@
+build-variables:
+    global:
+        - MY_VAR_1=This is a variable
+    services:
+        webmin:
+            - ROOT_PASSWORD=password
+

@@ -1,6 +1,8 @@
 FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:stretch
 
-RUN echo root:password | chpasswd && \
+ARG ROOT_PASSWORD
+
+RUN echo root:${ROOT_PASSWORD} | chpasswd && \
     install_packages apt-utils apt-transport-https locales perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libhtml-parser-perl libio-pty-perl python wget bind9
 
 RUN apt -o Acquire::GzipIndexes=false update && \
