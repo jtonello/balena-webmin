@@ -1,7 +1,7 @@
 FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:stretch
 
 RUN echo root:password | chpasswd && \
-    install_packages apt-utils apt-transport-https locales perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libhtml-parser-perl libio-pty-perl python wget 
+    install_packages apt-utils apt-transport-https locales perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libhtml-parser-perl libio-pty-perl python wget bind9
 
 RUN apt -o Acquire::GzipIndexes=false update && \
     apt install libstorable-perl apt-show-versions
@@ -13,8 +13,10 @@ RUN echo "deb https://download.webmin.com/download/repository sarge contrib" >> 
 
 ENV LC_ALL C.UTF-8
 
-VOLUME ["/etc/webmin"]
-VOLUME ["/var/webin"]
+VOLUME /etc/webin /etc/bind /var/webin /var/named 
 
-#CMD echo root:password | chpasswd
+COPY named.conf.options /etc/bind/
+
+EXPOSE 10000 53
+
 CMD /usr/bin/touch /var/webmin/miniserv.log && /usr/sbin/service webmin restart && /usr/bin/tail -f /var/webmin/miniserv.log

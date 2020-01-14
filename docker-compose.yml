@@ -1,20 +1,7 @@
 version: "2"
-volumes:
-  webmin_var: 
-  webmin_etc: 
 
 services:
   webmin:
     build: ./webmin
-    networks:
-      - frontend
-      - backend
-    ports:
-      - "10000:10000"
- #   volumes:
- #     - webmin_var:/var/webmin
- #     - webmin_etc:/etc/webmin
+    network_mode: host
     container_name: webmin
-networks:
-  frontend:
-  backend:
