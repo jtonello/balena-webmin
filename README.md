@@ -1,4 +1,4 @@
-# balenaWebmin
+# balena-webmin
 Multi-platform Webmin container for balenaCloud
 
 ### Introduction
