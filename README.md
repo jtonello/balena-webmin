@@ -16,7 +16,7 @@ The Webmin root password is set as a variable in the _.balena/balena.yml_ file. 
 ### Deploy
 Clone this repository, change into the balenaWebmin directory and push to your application:
 ```
-$ git clone git@github.com:jtonello/balenaWebmin.git
+$ git clone git@github.com:jtonello/balena-webmin.git
 $ cd balena-webmin
 $ balena push <appname>
 ```
