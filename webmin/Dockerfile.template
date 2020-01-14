@@ -1,0 +1,20 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:stretch
+
+RUN echo root:password | chpasswd && \
+    install_packages apt-utils apt-transport-https locales perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libhtml-parser-perl libio-pty-perl python wget 
+
+RUN apt -o Acquire::GzipIndexes=false update && \
+    apt install libstorable-perl apt-show-versions
+
+RUN echo "deb https://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list && \
+    wget http://www.webmin.com/jcameron-key.asc && \
+    apt-key add jcameron-key.asc && \
+    install_packages webmin -y
+
+ENV LC_ALL C.UTF-8
+
+VOLUME ["/etc/webmin"]
+VOLUME ["/var/webin"]
+
+#CMD echo root:password | chpasswd
+CMD /usr/bin/touch /var/webmin/miniserv.log && /usr/sbin/service webmin restart && /usr/bin/tail -f /var/webmin/miniserv.log
